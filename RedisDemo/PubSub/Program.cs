@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PubSub
@@ -22,22 +23,22 @@ namespace PubSub
             {
                 Sub();
             }
-            while (true)
-            {
 
-            }
+
+            Console.ReadLine();
         }
 
         static async Task Pub()
         {
             Console.WriteLine("请输入要发布向哪个通道？");
             var channel = Console.ReadLine();
-            while (true)
-            {    
-                Console.WriteLine("请输入要发布的消息内容.");
-                var message = Console.ReadLine();
-                await _redis.PublishAsync(channel, message);
+
+            await Task.Delay(10);
+            for(int i = 0; i < 10; i++)
+            {
+                await _redis.PublishAsync(channel, i.ToString());
             }
+                
         }
 
         static async Task Sub()
