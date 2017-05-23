@@ -23,6 +23,7 @@ namespace Lock
             Console.WriteLine("Start..........");
             var db = _redis.GetDatabase();
             RedisValue token = Environment.MachineName;
+            //实际项目秒杀此处可换成商品ID
             if (db.LockTake("test", token, TimeSpan.FromSeconds(10)))
             {
                 try
